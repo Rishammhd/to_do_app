@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/pages/homescreen.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -97,9 +96,10 @@ class _LoginscreenState extends State<Loginscreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
-                        Navigator.push(
+                        Navigator.pushNamedAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (_) => Homescreen()),
+                          "/homescreen",
+                          (route) => false,
                         );
                       }
                     },
@@ -152,7 +152,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     Text("No account ?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/signup");
+                        Navigator.pushNamed(context, "/signup");
                       },
                       child: Text(
                         "SignUp",
