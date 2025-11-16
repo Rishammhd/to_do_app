@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:to_do_app/utils/fluttertoast.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -96,6 +98,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
+                        Message.showmessage(message: "succefully logged in");
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           "/homescreen",
@@ -132,7 +135,9 @@ class _LoginscreenState extends State<Loginscreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/forgot");
+                      },
 
                       child: Text(
                         "Forgot your password",
