@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/service/authhelper.dart';
+import 'package:to_do_app/utils/fluttertoast.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -137,13 +139,23 @@ class _SignupState extends State<Signup> {
                     opacity: _acceptterms ? 1.0 : 0.4,
                     child: ElevatedButton(
                       onPressed: _acceptterms
-                          ? () {
+                          ? () async {
                               if (_formkey.currentState!.validate()) {
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  "/homescreen",
-                                  (route) => false,
-                                );
+                                AuthHelper.createaccountwithemail(
+                                  _username.text.trim(),
+                                  _password.text.trim(),
+                                ).then((value) {
+                                  if (value == "account created") {
+                                    Message.showmessage(
+                                      message: "Created account succefully",
+                                    );
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      "/homescreen",
+                                      (route) => false,
+                                    );
+                                  }
+                                });
                               }
                             }
                           : null,

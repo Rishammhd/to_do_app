@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:to_do_app/service/authhelper.dart';
 import 'package:to_do_app/utils/fluttertoast.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -96,14 +97,25 @@ class _LoginscreenState extends State<Loginscreen> {
                 // Login Button
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formkey.currentState!.validate()) {
-                        Message.showmessage(message: "succefully logged in");
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          "/homescreen",
-                          (route) => false,
-                        );
+                        await AuthHelper.loginwithusernameandpassword(
+                          _username.text,
+                          _password.text,
+                        ).then((value) {
+                          if (value == "Login successful") {
+                            Message.showmessage(
+                              message: "succefully logged in",
+                            );
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              "/homescreen",
+                              (route) => false,
+                            );
+                          } else {
+                            Message.showmessage(message: "User not Found");
+                          }
+                        });
                       }
                     },
                     style: ButtonStyle(
